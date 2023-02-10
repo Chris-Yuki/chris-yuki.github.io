@@ -10,6 +10,7 @@
 				padding: 0;
 			}
 			body{
+				margin-top: 30vh;
 				background: pink;
 			}
 			.box{
@@ -62,6 +63,7 @@
 	<body>
 		<div class="box"></div>
 		<p id="h2"></p>
+		<audio src="恋爱吧 魔法少女 hanser.mp3" autoplay="autoplay" loop="1" id="music"></audio>
 		<script>
 			var h = document.getElementById(h2);//调取html中的输出对象
 			//计时器方法一
@@ -99,6 +101,9 @@
 				}//根据真实时间差选择输出语句.
  
 			}
+			document.getElementById("music").volume = 0.4;
 		</script>
+		
+
 	</body>
 </html>
