@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="zh"><head>
+<title>grafana 如何监控 nginx 状态 - 巧克力 の 移动城堡</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta name="description" content="grafana 如何监控 nginx 状态 查询 nginx 是否启用 stub_status 模块 终端输入，如果有返回结果，则说明 nginx 启用了 stub_status 模块1nginx -V 2&gt;&amp;1 | grep -o with-http_stub_status_module   在 nginx 配置文件中 配置以下 location 块1234567891011121">
+<meta property="og:type" content="article">
+<meta property="og:title" content="grafana 如何监控 nginx 状态">
+<meta property="og:url" content="https://chris-yuki.github.io/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/index.html">
+<meta property="og:site_name" content="巧克力 の 移动城堡">
+<meta property="og:description" content="grafana 如何监控 nginx 状态 查询 nginx 是否启用 stub_status 模块 终端输入，如果有返回结果，则说明 nginx 启用了 stub_status 模块1nginx -V 2&gt;&amp;1 | grep -o with-http_stub_status_module   在 nginx 配置文件中 配置以下 location 块1234567891011121">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image.png">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-1.png">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-2.png">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-3.png">
+<meta property="article:published_time" content="2025-07-23T06:13:43.000Z">
+<meta property="article:modified_time" content="2025-07-23T10:15:52.000Z">
+<meta property="article:author" content="巧克力">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chris-yuki.github.io/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image.png">
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753265784196">
+
+<link rel="stylesheet" href="/css/style.css?v=1753265784196">
+
+
+
+
+    
+        <link rel="stylesheet" href="/custom.css?v=1753265784196">
+    
+
+
+
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+<script src="/lib/lax.min.js" async></script>
+
+
+<script async src="/js/app.js?v=1753265784197"></script>
+
+ 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(https://wallpapercave.com/wp/wp8345235.jpg)"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon" href="/" title="巧克力"><img src="https://www.005.tv/uploads/compress/allimg/160710/22-160G01939513B.jpg" alt="巧克力"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="巧克力">
+            <img src="https://www.005.tv/uploads/compress/allimg/160710/22-160G01939513B.jpg" alt="巧克力" alt="巧克力">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>5</div>
+        <div><span>分类</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="https://chris-yuki.github.io/" title="关于博主">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博主
+            </div>
+        </a>
+        
+    </div>
+    
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=site:https://chris-yuki.github.io" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://space.bilibili.com/85279737"
+			target="_blank"
+			mdui-tooltip="{content: '哔哩哔哩'}"
+			style="
+				color: rgb(231, 106, 141);
+				background-color: rgba(231, 106, 141, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-bilibili"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://github.com/chris-yuki/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(200, 200, 200);
+				background-color: rgba(231, 106, 141, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Gemini-cli/" style="font-size: 10px;">Gemini-cli</a> <a href="/tags/fnm/" style="font-size: 10px;">fnm</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nvm/" style="font-size: 10px;">nvm</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(5);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+    
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/">grafana 如何监控 nginx 状态</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/21/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/">Windows 11 安装 Gemini-cli</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/">nvm 迁移到 fnm</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/17/my-first-article/">My-First-Article</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/17/hello-world/">你好，世界</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-link">
+		<ul>
+        
+		</ul>
+    </div>
+</div>
+<style>
+.nexmoe-widget-wrap .nexmoe-link ul li a {
+    text-align : center;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a img {
+    max-width : 100%;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a p {
+    margin: 10px 0;
+}
+</style>
+
+    
+   
+    <div class="nexmoe-copyright">
+        &copy; 2025 巧克力
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="https://wallpapercave.com/wp/wp8345235.jpg" alt="grafana 如何监控 nginx 状态" loading="lazy">
+            <h1>grafana 如何监控 nginx 状态</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2025年07月23日</a>
+        
+        
+    <a><i class="nexmoefont icon-areachart"></i>约1.3k字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要5分钟</a>
+
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="grafana-如何监控-nginx-状态"><a href="#grafana-如何监控-nginx-状态" class="headerlink" title="grafana 如何监控 nginx 状态"></a>grafana 如何监控 nginx 状态</h2><ol>
+<li>查询 nginx 是否启用 stub_status 模块<ol>
+<li>终端输入，如果有返回结果，则说明 nginx 启用了 stub_status 模块<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nginx -V 2&gt;&amp;1 | grep -o with-http_stub_status_module<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>在 nginx 配置文件中 配置以下 location 块<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">server &#123;<br> listen 8088; <span class="hljs-comment"># 使用一个不常用的端口</span><br> server_name 172.22.199.119; <span class="hljs-comment"># 可以监听 Nginx 服务器的实际 IP</span><br><br> location /nginx_status &#123;<br>     stub_status on;<br>     <span class="hljs-comment"># 允许 Nginx Prometheus Exporter 所在的服务器 IP 访问</span><br>     allow 172.22.199.119; <span class="hljs-comment"># 如果 Nginx Exporter 和 Nginx 在同一台机器上，用这个</span><br>     allow 127.0.0.1; <span class="hljs-comment"># 放行其他ip（可以试试公网ip）</span><br>     <span class="hljs-comment"># 如果 Nginx Exporter 在另一台机器上（例如 172.22.199.120），请将此行替换为 Exporter 的 IP</span><br>     <span class="hljs-comment"># allow 172.22.199.120;</span><br>     deny all; <span class="hljs-comment"># 拒绝其他所有 IP 访问，增强安全性</span><br> &#125;<br> &#125;<br></code></pre></td></tr></table></figure></li>
+<li>为什么我要安装 nginx-prometheus-exporter <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">好的，我们来解释一下 nginx-exporter 是什么，以及为什么在使用 Grafana 监控 Nginx 时需要它。简单来说，Nginx Exporter （特别是指 nginx-prometheus-exporter）是一个独立的程序，它的作用是作为 Nginx 和 Prometheus （Grafana 通常从 Prometheus 获取数据）之间的桥梁。<br>Nginx 的限制 ：Nginx 本身可以通过 stub_status 模块（就像你配置的 /nginx_status 那样）提供一些基本的运行状态信息，但这些信息是以一种简单的文本格式呈现的，Prometheus 无法直接理解和使用。Exporter 的作用 ：Nginx Exporter 会访问 Nginx 的状态页面（如 http://your-nginx-ip:8088/nginx_status），读取这些原始数据，并将其转换 成 Prometheus 能够理解的指标格式 （通常是带有特定标签的时间序列数据）。<br>Prometheus 收集 ：Prometheus 服务器会定期从 Nginx Exporter 暴露的特定 URL（例如 http://exporter-ip:9113/metrics）抓取这些转换后的指标数据并存储起来。Grafana 可视化 ：最后，Grafana 连接到 Prometheus 数据源，查询这些存储好的指标数据，并将其展示成直观的图表和仪表盘。通常有为 Nginx Exporter 预制的 Grafana 仪表盘可以使用。所以，你需要安装 Nginx Exporter ，是因为它负责将 Nginx 的原生状态信息“翻译”成 Prometheus 和 Grafana 能够处理和展示的标准化指标数据。没有这个 Exporter，Grafana 就无法直接从 Nginx 获取到可用于监控的详细性能指标。<br></code></pre></td></tr></table></figure></li>
+<li>在 nginx 所属服务器上 配置 nginx-prometheus-exporter<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">nginx-exporter:<br>image: nginx/nginx-prometheus-exporter:latest <span class="hljs-comment"># 使用 latest 标签</span><br>container_name: nginx-exporter <span class="hljs-comment"># 容器名称与 docker run 一致</span><br>restart: unless-stopped <span class="hljs-comment"># 等效于 docker run 的 -d (后台运行) 的持久化行为</span><br><span class="hljs-comment"># command 部分对应 docker run 中 --nginx.scrape-uri 参数后面的内容</span><br><span class="hljs-built_in">command</span>:<br>- <span class="hljs-string">&#x27;--nginx.scrape-uri=http://172.22.199.119:8088/nginx_status&#x27;</span> <span class="hljs-comment"># 与你的 docker run 命令一致</span><br>ports:<br>  - <span class="hljs-string">&quot;9113:9113&quot;</span> <span class="hljs-comment"># 对应 docker run 的 -p 9113:9113</span><br>  networks:<br>  - my-custom-net <span class="hljs-comment"># 加入你现有的网络</span><br></code></pre></td></tr></table></figure></li>
+<li>查看端口是否被占用<br> <code>bash sudo lsof -i :9113 </code></li>
+<li>在配置白名单的服务器上运行此命令，查看是否有输出  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl http://172.22.199.119:9113/metrics<br></code></pre></td></tr></table></figure>
+输出结果类似如下：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image.png" alt="alt text" data-caption="alt text" loading="lazy"></li>
+<li>在 prometheus 配置文件中添加以下内容,并重启prometheus<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">- job_name: <span class="hljs-string">&#x27;nginx&#x27;</span><br>  static_configs:<br>   - targets: [<span class="hljs-string">&#x27;172.22.199.119:9113&#x27;</span>] <span class="hljs-comment"># 指向 Nginx Prometheus Exporter 的 IP 和端口 </span><br></code></pre></td></tr></table></figure></li>
+<li>遇到问题：1在grafana 中 配置 nginx 面板 遇到了 nodata 错误，疑似是 prometheus 配置错误<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">进入 prometheus webui 查看 status 发现没有问题<br></code></pre></td></tr></table></figure>
+<img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-1.png" alt="alt text" data-caption="alt text" loading="lazy"></li>
+<li>发现是 grafana 用错面板了<br>应该使用这个：<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/11199-nginx/">https://grafana.com/grafana/dashboards/11199-nginx/</a></li>
+<li>面板正常使用<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-2.png" alt="alt text" data-caption="alt text" loading="lazy"></li>
+</ol>
+<h2 id="在另一台服务器上配置"><a href="#在另一台服务器上配置" class="headerlink" title="在另一台服务器上配置"></a>在另一台服务器上配置</h2><ol>
+<li><p>配置 Nginx 启用 stub_status 模块  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 文件路径示例: /etc/nginx/conf.d/nginx_status_121.conf</span><br>server &#123;<br>   listen 8088; <span class="hljs-comment"># 使用不常用的端口，例如 8088，确保不与 Nginx 对外服务端口冲突</span><br>   server_name 172.22.199.121; <span class="hljs-comment"># 监听这台 Nginx 服务器自己的 IP</span><br><br>   location /nginx_status &#123;<br>     stub_status on;<br>     <span class="hljs-comment"># 允许 Nginx Prometheus Exporter 所在的 IP 地址访问</span><br>     <span class="hljs-comment"># Nginx Prometheus Exporter 将运行在这台服务器 (172.22.199.121) 上，所以允许本地访问</span><br>     allow 127.0.0.1;<br>     deny all; <span class="hljs-comment"># 拒绝其他所有 IP 访问，增强安全性</span><br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>测试 Nginx 状态页面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl http://127.0.0.1:8088/nginx_status<br></code></pre></td></tr></table></figure>
+<p>输出结果类似如下：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-3.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+</li>
+<li><p>安装 Nginx Prometheus Exporter</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">nginx-exporter:<br>   image: nginx/nginx-prometheus-exporter:latest <span class="hljs-comment"># 使用 latest 标签</span><br>   container_name: nginx-exporter <span class="hljs-comment"># 容器名称与 docker run 一致</span><br>   restart: unless-stopped <span class="hljs-comment"># 等效于 docker run 的 -d (后台运行) 的持久化行为</span><br>   <span class="hljs-comment"># command 部分对应 docker run 中 --nginx.scrape-uri 参数后面的内容</span><br>   <span class="hljs-built_in">command</span>:<br>   - <span class="hljs-string">&#x27;--nginx.scrape-uri=http://172.22.199.121:8088/nginx_status&#x27;</span> <span class="hljs-comment"># 与你的 docker run 命令一致</span><br>   ports:<br>     - <span class="hljs-string">&quot;9113:9113&quot;</span> <span class="hljs-comment"># 对应 docker run 的 -p 9113:9113</span><br>     networks:<br>     - my-custom-net <span class="hljs-comment"># 加入你现有的网络</span><br></code></pre></td></tr></table></figure>
+<p>验证是否安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl http://172.22.199.121:9113/metrics<br></code></pre></td></tr></table></figure></li>
+<li><p>在 172.22.199.118 (监控服务器 - 运行 Prometheus 和 Grafana) 上操作<br>需要告诉 Prometheus 去抓取新的 Nginx 服务器 (172.22.199.121) 上的 Nginx Exporter。<br>编辑 prometheus.yml 文件，在 scrape_configs 部分添加一个新的 job。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">     <span class="hljs-comment"># 监控 Nginx 服务器 121</span><br>- job_name: <span class="hljs-string">&#x27;nginx_server_121&#x27;</span><br>  static_configs:<br>   - targets: [<span class="hljs-string">&#x27;172.22.199.121:9113&#x27;</span>]<br></code></pre></td></tr></table></figure></li>
+<li><p>重启 prometheus 服务 成功</p>
+</li>
+</ol>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1753265784177"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
+        <div class="nexmoe-tool">
+
+            
+
+            
+            
+            <button class="mdui-fab catalog" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                <div class="nexmoe-toc">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81"><span class="toc-number">1.</span> <span class="toc-text">grafana 如何监控 nginx 状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E5%8F%A6%E4%B8%80%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">在另一台服务器上配置</span></a></li></ol>
+                </div>
+            </button>
+            
+
+            
+
+            <a href="#nexmoe-content" class="backtop toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+        </div>
+    </div>
+</div></div><div id="nexmoe-footer"><!--!--></div><div id="nexmoe-search-space"><div class="search-container"><div class="search-header"><div class="search-input-container"><input class="search-input" type="text" placeholder="搜索" onInput="sinput();"></div><a class="search-close" onclick="sclose();">×</a></div><div class="search-body"></div></div></div><div></div></body></html>
