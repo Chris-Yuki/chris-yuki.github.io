@@ -5,7 +5,7 @@
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/covers/favicon.ico" type="image/x-icon" />
 <meta name="description" content="grafana 如何监控 nginx 状态 查询 nginx 是否启用 stub_status 模块 终端输入，如果有返回结果，则说明 nginx 启用了 stub_status 模块1nginx -V 2&gt;&amp;1 | grep -o with-http_stub_status_module   在 nginx 配置文件中 配置以下 location 块1234567891011121">
 <meta property="og:type" content="article">
 <meta property="og:title" content="grafana 如何监控 nginx 状态">
@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753281666921">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753289044655">
 
-<link rel="stylesheet" href="/css/style.css?v=1753281666921">
+<link rel="stylesheet" href="/css/style.css?v=1753289044655">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1753281666921">
+        <link rel="stylesheet" href="/custom.css?v=1753289044655">
     
 
 
@@ -48,7 +48,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1753281666921"></script>
+<script async src="/js/app.js?v=1753289044656"></script>
 
  
 
@@ -64,16 +64,16 @@
 
 
 <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
-<meta name="generator" content="Hexo 7.3.0"></head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(https://wallpapercave.com/wp/wp8345235.jpg)"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon" href="/" title="巧克力"><img src="https://www.005.tv/uploads/compress/allimg/160710/22-160G01939513B.jpg" alt="巧克力"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
+<meta name="generator" content="Hexo 7.3.0"></head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(https://wallpapercave.com/wp/wp8345235.jpg)"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon" href="/" title="巧克力"><img src="/covers/profile-images.png" alt="巧克力"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
     <div class="nexmoe-avatar mdui-ripple">
         <a href="/" title="巧克力">
-            <img src="https://www.005.tv/uploads/compress/allimg/160710/22-160G01939513B.jpg" alt="巧克力" alt="巧克力">
+            <img src="/covers/profile-images.png" alt="巧克力" alt="巧克力">
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>文章</span>5</div>
+        <div><span>文章</span>4</div>
         <div><span>标签</span>8</div>
-        <div><span>分类</span>0</div>
+        <div><span>分类</span>1</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
@@ -145,6 +145,30 @@
     
         
         
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/hello-world/">hello world</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
 
     
         
@@ -179,7 +203,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -203,10 +227,6 @@
         
           <li>
             <a href="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/">nvm 迁移到 fnm</a>
-          </li>
-        
-          <li>
-            <a href="/2025/07/17/my-first-article/">My-First-Article</a>
           </li>
         
           <li>
@@ -249,8 +269,8 @@
 </div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
   <article>
     
-        <div class="nexmoe-post-cover"> 
-            <img src="https://wallpapercave.com/wp/wp8345235.jpg" alt="grafana 如何监控 nginx 状态" loading="lazy">
+        <div class="nexmoe-post-cover absolute" style="padding-top: NaN%;"> 
+            <img src="/covers/grafana-如何监控-nginx-状态.png" alt="grafana 如何监控 nginx 状态" loading="lazy">
             <h1>grafana 如何监控 nginx 状态</h1>
         </div>
     
@@ -321,7 +341,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1753281666896"></script>
+    <script async src="/js/copy-codeblock.js?v=1753289044628"></script>
   
 
   
