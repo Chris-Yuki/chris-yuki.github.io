@@ -30,15 +30,15 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753370870987">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753371786242">
 
-<link rel="stylesheet" href="/css/style.css?v=1753370870987">
+<link rel="stylesheet" href="/css/style.css?v=1753371786242">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1753370870987">
+        <link rel="stylesheet" href="/custom.css?v=1753371786242">
     
 
 
@@ -48,7 +48,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1753370870987"></script>
+<script async src="/js/app.js?v=1753371786242"></script>
 
  
 
@@ -84,7 +84,7 @@
             </div>
         </a>
         
-        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="https://chris-yuki.github.io/" title="关于博主">
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" target="_blank" rel="noopener" href="https://github.com/Chris-Yuki" title="关于博主">
             <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
             <div class="mdui-list-item-content">
                 关于博主
@@ -336,7 +336,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 文件路径示例: /etc/nginx/conf.d/nginx_status_121.conf</span><br>server &#123;<br>   listen 8088; <span class="hljs-comment"># 使用不常用的端口，例如 8088，确保不与 Nginx 对外服务端口冲突</span><br>   server_name 172.22.199.121; <span class="hljs-comment"># 监听这台 Nginx 服务器自己的 IP</span><br><br>   location /nginx_status &#123;<br>     stub_status on;<br>     <span class="hljs-comment"># 允许 Nginx Prometheus Exporter 所在的 IP 地址访问</span><br>     <span class="hljs-comment"># Nginx Prometheus Exporter 将运行在这台服务器 (172.22.199.121) 上，所以允许本地访问</span><br>     allow 127.0.0.1;<br>     deny all; <span class="hljs-comment"># 拒绝其他所有 IP 访问，增强安全性</span><br>   &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 <li><p>测试 Nginx stub_status 页面</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl http://127.0.0.1:8088/nginx_status<br></code></pre></td></tr></table></figure>
-<p>输出结果类似如下：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-3.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+<p>输出结果类似如下：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/image-3.png" alt="通过 curl 命令访问 Nginx stub_status 页面的输出结果" data-caption="通过 curl 命令访问 Nginx stub_status 页面的输出结果" loading="lazy"></p>
 </li>
 <li><p>安装 Nginx Prometheus Exporter</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">nginx-exporter:<br>   image: nginx/nginx-prometheus-exporter:latest <span class="hljs-comment"># 使用 latest 标签</span><br>   container_name: nginx-exporter <span class="hljs-comment"># 容器名称与 docker run 一致</span><br>   restart: unless-stopped <span class="hljs-comment"># 等效于 docker run 的 -d (后台运行) 的持久化行为</span><br>   <span class="hljs-comment"># command 部分对应 docker run 中 --nginx.scrape-uri 参数后面的内容</span><br>   <span class="hljs-built_in">command</span>:<br>   - <span class="hljs-string">&#x27;--nginx.scrape-uri=http://172.22.199.121:8088/nginx_status&#x27;</span> <span class="hljs-comment"># 与你的 docker run 命令一致</span><br>   ports:<br>     - <span class="hljs-string">&quot;9113:9113&quot;</span> <span class="hljs-comment"># 对应 docker run 的 -p 9113:9113</span><br>     networks:<br>     - my-custom-net <span class="hljs-comment"># 加入你现有的网络</span><br></code></pre></td></tr></table></figure>
@@ -364,7 +364,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1753370870947"></script>
+    <script async src="/js/copy-codeblock.js?v=1753371786207"></script>
   
 
   
