@@ -31,15 +31,15 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753371786250">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753374871779">
 
-<link rel="stylesheet" href="/css/style.css?v=1753371786250">
+<link rel="stylesheet" href="/css/style.css?v=1753374871779">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1753371786250">
+        <link rel="stylesheet" href="/custom.css?v=1753374871779">
     
 
 
@@ -49,7 +49,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1753371786250"></script>
+<script async src="/js/app.js?v=1753374871779"></script>
 
  
 
@@ -317,17 +317,17 @@
 <li><p>查看 Gemini CLI 版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gemini --version<br></code></pre></td></tr></table></figure>
 
-<p>输出结果：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+<p>输出结果：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image.png" alt="在 PowerShell 中成功安装 Gemini-CLI 后，使用 &#96;gemini --version&#96; 命令查看其版本号的截图" data-caption="在 PowerShell 中成功安装 Gemini-CLI 后，使用 &#96;gemini --version&#96; 命令查看其版本号的截图" loading="lazy"></p>
 </li>
 <li><p>启动</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gemini<br></code></pre></td></tr></table></figure>
 
-<p>输出结果：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-1.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+<p>输出结果：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-1.png" alt="gemini 命令启动后的初始界面" data-caption="gemini 命令启动后的初始界面" loading="lazy"></p>
 </li>
-<li><p>选择 Login with Google<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-2.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+<li><p>选择 Login with Google<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-2.png" alt="Gemini CLI 登录选项" data-caption="Gemini CLI 登录选项" loading="lazy"></p>
 </li>
 </ol>
-<h2 id="问题1：登录失败"><a href="#问题1：登录失败" class="headerlink" title="问题1：登录失败"></a>问题1：登录失败</h2><p>   <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-3.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+<h2 id="问题1：登录失败"><a href="#问题1：登录失败" class="headerlink" title="问题1：登录失败"></a>问题1：登录失败</h2><p>   <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-3.png" alt="Gemini CLI 登录失败的错误信息" data-caption="Gemini CLI 登录失败的错误信息" loading="lazy"></p>
 <ol>
 <li><p>解决办法</p>
 <ul>
@@ -337,7 +337,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$env</span>:https_proxy=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-variable">$env</span>:http_proxy=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br></code></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="问题2：缺少环境变量提示"><a href="#问题2：缺少环境变量提示" class="headerlink" title="问题2：缺少环境变量提示"></a>问题2：缺少环境变量提示</h2><ol>
-<li><p>│ Failed to login. Message: This account requires setting the GOOGLE_CLOUD_PROJECT env var. See            │<br>│ <a target="_blank" rel="noopener" href="https://goo.gle/gemini-cli-auth-docs#workspace-gca">https://goo.gle/gemini-cli-auth-docs#workspace-gca</a><br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-4.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+<li><p>│ Failed to login. Message: This account requires setting the GOOGLE_CLOUD_PROJECT env var. See            │<br>│ <a target="_blank" rel="noopener" href="https://goo.gle/gemini-cli-auth-docs#workspace-gca">https://goo.gle/gemini-cli-auth-docs#workspace-gca</a><br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/image-4.png" alt="缺少 GOOGLE_CLOUD_PROJECT 环境变量的错误提示" data-caption="缺少 GOOGLE_CLOUD_PROJECT 环境变量的错误提示" loading="lazy"></p>
 </li>
 <li><p>创建并获取您的 Gemini API Key</p>
 <p><a target="_blank" rel="noopener" href="https://aistudio.google.com/app/apikey">https://aistudio.google.com/app/apikey</a></p>
@@ -370,7 +370,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1753371786208"></script>
+    <script async src="/js/copy-codeblock.js?v=1753374871743"></script>
   
 
   
