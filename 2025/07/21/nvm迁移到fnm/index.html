@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
 <link rel="shortcut icon" href="/covers/favicon.ico" type="image/x-icon" />
-<meta name="description" content="nvm 迁移到 fnm卸载 nvm 找出npm中所有hexo依赖的包123npm list | Select-String -Pattern &quot;hexo&quot;npm list -g | Select-String -Pattern &quot;hexo&quot;     删除已有node版本 查询已有node版本 1nvm ls   卸载所有node版本1nvm uninstal">
+<meta name="description" content="nvm 迁移到 fnm卸载 nvm 找出npm中所有hexo依赖的包123npm list | Select-String -Pattern &quot;hexo&quot;npm list -g | Select-String -Pattern &quot;hexo&quot;     删除已有Node.js版本 查询已安装的 Node.js 版本 1nvm ls   卸载所有 Node.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nvm 迁移到 fnm">
 <meta property="og:url" content="https://chris-yuki.github.io/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/index.html">
 <meta property="og:site_name" content="巧克力 の 移动城堡">
-<meta property="og:description" content="nvm 迁移到 fnm卸载 nvm 找出npm中所有hexo依赖的包123npm list | Select-String -Pattern &quot;hexo&quot;npm list -g | Select-String -Pattern &quot;hexo&quot;     删除已有node版本 查询已有node版本 1nvm ls   卸载所有node版本1nvm uninstal">
+<meta property="og:description" content="nvm 迁移到 fnm卸载 nvm 找出npm中所有hexo依赖的包123npm list | Select-String -Pattern &quot;hexo&quot;npm list -g | Select-String -Pattern &quot;hexo&quot;     删除已有Node.js版本 查询已安装的 Node.js 版本 1nvm ls   卸载所有 Node.js">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chris-yuki.github.io/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-1.png">
 <meta property="og:image" content="https://chris-yuki.github.io/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image.png">
@@ -37,15 +37,15 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753325845860">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1753366563629">
 
-<link rel="stylesheet" href="/css/style.css?v=1753325845860">
+<link rel="stylesheet" href="/css/style.css?v=1753366563629">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1753325845860">
+        <link rel="stylesheet" href="/custom.css?v=1753366563629">
     
 
 
@@ -55,7 +55,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1753325845860"></script>
+<script async src="/js/app.js?v=1753366563629"></script>
 
  
 
@@ -79,8 +79,8 @@
     </div>
     <div class="nexmoe-count">
         <div><span>文章</span>4</div>
-        <div><span>标签</span>8</div>
-        <div><span>分类</span>1</div>
+        <div><span>标签</span>9</div>
+        <div><span>分类</span>2</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
         
@@ -166,6 +166,13 @@
         
 
         <li class="category-list-item">
+          <a class="category-list-link" href="/categories/AI/">AI</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
           <a class="category-list-link" href="/categories/hello-world/">hello world</a>
           <span class="category-list-count">1</span>
         </li>
@@ -182,12 +189,12 @@
         
   <div class="nexmoe-widget-wrap">
     <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
-      <a href="/tags/Gemini-cli/" style="font-size: 10px;">Gemini-cli</a> <a href="/tags/fnm/" style="font-size: 10px;">fnm</a> <a href="/tags/grafana/" style="font-size: 10px;">grafana</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nvm/" style="font-size: 10px;">nvm</a> <a href="/tags/prometheus/" style="font-size: 10px;">prometheus</a>
+      <a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/Gemini/" style="font-size: 10px;">Gemini</a> <a href="/tags/fnm/" style="font-size: 10px;">fnm</a> <a href="/tags/grafana/" style="font-size: 10px;">grafana</a> <a href="/tags/hello-world/" style="font-size: 10px;">hello world</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/nvm/" style="font-size: 10px;">nvm</a> <a href="/tags/prometheus/" style="font-size: 10px;">prometheus</a>
     </div>
     
       <script>
         var maxTagcloud = parseInt(17);
-        var tags_length = parseInt(8);
+        var tags_length = parseInt(9);
         var tags_arr = [];
         for(var i = 0; i < tags_length; i++){
           tags_arr.push(i);
@@ -225,11 +232,11 @@
       <ul>
         
           <li>
-            <a href="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/">Windows 11 安装 Gemini-cli（施工中）</a>
+            <a href="/2025/07/24/Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli/">Windows 11 安装 Gemini-cli</a>
           </li>
         
           <li>
-            <a href="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/">grafana 如何监控 nginx 状态</a>
+            <a href="/2025/07/23/grafana-%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7-nginx-%E7%8A%B6%E6%80%81/">Grafana 如何监控 Nginx 状态</a>
           </li>
         
           <li>
@@ -287,7 +294,7 @@
         <a class="nexmoefont icon-calendar-fill">2025年07月21日</a>
         
         
-    <a><i class="nexmoefont icon-areachart"></i>约341字</a>
+    <a><i class="nexmoefont icon-areachart"></i>约364字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要1分钟</a>
 
     </div>
@@ -303,12 +310,12 @@
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-1.png" alt="查询 hexo 依赖" data-caption="查询 hexo 依赖" loading="lazy"></p>
 </li>
-<li><h4 id="删除已有node版本"><a href="#删除已有node版本" class="headerlink" title="删除已有node版本"></a>删除已有node版本</h4><ol>
-<li><p>查询已有node版本</p>
+<li><h4 id="删除已有Node-js版本"><a href="#删除已有Node-js版本" class="headerlink" title="删除已有Node.js版本"></a>删除已有Node.js版本</h4><ol>
+<li><p>查询已安装的 Node.js 版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvm <span class="hljs-built_in">ls</span><br></code></pre></td></tr></table></figure>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 </li>
-<li><h4 id="卸载所有node版本"><a href="#卸载所有node版本" class="headerlink" title="卸载所有node版本"></a>卸载所有node版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvm uninstall 16.20.2<br></code></pre></td></tr></table></figure>
+<li><h4 id="卸载所有-Node-js-版本"><a href="#卸载所有-Node-js-版本" class="headerlink" title="卸载所有 Node.js 版本"></a>卸载所有 Node.js 版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvm uninstall 16.20.2<br></code></pre></td></tr></table></figure>
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-2.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 </li>
@@ -322,35 +329,35 @@
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-5.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 <h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><ol>
-<li><h4 id="检查powershell配置文件"><a href="#检查powershell配置文件" class="headerlink" title="检查powershell配置文件"></a>检查powershell配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> (-not (Test-Path <span class="hljs-variable">$profile</span>)) &#123; New-Item <span class="hljs-variable">$profile</span> -Force &#125;<br><span class="hljs-comment"># 如果文件不存在，这个命令会帮你创建一个空文件。</span><br><span class="hljs-comment"># 如果文件已经存在，这个命令什么都不会做，不会覆盖你的现有文件。</span><br></code></pre></td></tr></table></figure>
+<li><h4 id="检查-PowerShell-配置文件"><a href="#检查-PowerShell-配置文件" class="headerlink" title="检查 PowerShell 配置文件"></a>检查 PowerShell 配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> (-not (Test-Path <span class="hljs-variable">$profile</span>)) &#123; New-Item <span class="hljs-variable">$profile</span> -Force &#125;<br><span class="hljs-comment"># 如果文件不存在，这个命令会帮你创建一个空文件。</span><br><span class="hljs-comment"># 如果文件已经存在，这个命令什么都不会做，不会覆盖你的现有文件。</span><br></code></pre></td></tr></table></figure>
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-6.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 </li>
-<li><h4 id="编辑profile配置文件"><a href="#编辑profile配置文件" class="headerlink" title="编辑profile配置文件"></a>编辑profile配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Invoke-Item <span class="hljs-variable">$profile</span><br><span class="hljs-comment"># 运行这个命令，会打开你的profile文件。</span><br></code></pre></td></tr></table></figure>
+<li><h4 id="编辑-Profile-配置文件"><a href="#编辑-Profile-配置文件" class="headerlink" title="编辑 Profile 配置文件"></a>编辑 Profile 配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Invoke-Item <span class="hljs-variable">$profile</span><br><span class="hljs-comment"># 运行这个命令，会打开你的profile文件。</span><br></code></pre></td></tr></table></figure>
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-7.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 </li>
-<li><h4 id="添加fnm环境变量"><a href="#添加fnm环境变量" class="headerlink" title="添加fnm环境变量"></a>添加fnm环境变量</h4><p>profile文件末尾添加如下内容并保存</p>
+<li><h4 id="添加-FNM-环境变量"><a href="#添加-FNM-环境变量" class="headerlink" title="添加 FNM 环境变量"></a>添加 FNM 环境变量</h4><p>profile文件末尾添加如下内容并保存</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm <span class="hljs-built_in">env</span> --use-on-cd --shell powershell | Out-String | Invoke-Expression<br></code></pre></td></tr></table></figure>
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-8.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 </li>
-<li><h4 id="验证是否成功"><a href="#验证是否成功" class="headerlink" title="验证是否成功"></a>验证是否成功</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm <span class="hljs-built_in">ls</span><br><span class="hljs-comment"># 如不报错即为成功</span><br></code></pre></td></tr></table></figure>
+<li><h4 id="验证安装是否成功"><a href="#验证安装是否成功" class="headerlink" title="验证安装是否成功"></a>验证安装是否成功</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm <span class="hljs-built_in">ls</span><br><span class="hljs-comment"># 如不报错即为成功</span><br></code></pre></td></tr></table></figure>
 
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-9.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
 </li>
-<li><h4 id="修改默认安装根目录"><a href="#修改默认安装根目录" class="headerlink" title="修改默认安装根目录"></a>修改默认安装根目录</h4><p>查看fnm 设置默认安装目录</p>
+<li><h4 id="修改默认安装目录"><a href="#修改默认安装目录" class="headerlink" title="修改默认安装目录"></a>修改默认安装目录</h4><p>查看fnm 设置默认安装目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm <span class="hljs-built_in">env</span><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="fnm-安装-node"><a href="#fnm-安装-node" class="headerlink" title="fnm 安装 node"></a>fnm 安装 node</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm <span class="hljs-built_in">ls</span> <span class="hljs-comment"># 查询 已安装的 node</span><br><br>fnm ls-remote <span class="hljs-comment"># 查询 可安装的 node 版本</span><br><br>fnm currentfnm current <span class="hljs-comment"># 查询 当前使用的 node</span><br><br>fnm install lts  <span class="hljs-comment"># 安装</span><br></code></pre></td></tr></table></figure>
+<h3 id="fnm-安装-node"><a href="#fnm-安装-node" class="headerlink" title="fnm 安装 node"></a>fnm 安装 node</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm <span class="hljs-built_in">ls</span> <span class="hljs-comment"># 查询已安装的 Node.js 版本</span><br><br>fnm ls-remote <span class="hljs-comment"># 查询可安装的 Node.js 版本</span><br><br>fnm currentfnm current <span class="hljs-comment"># 查询当前使用的 Node.js 版本</span><br><br>fnm install lts  <span class="hljs-comment"># 安装</span><br></code></pre></td></tr></table></figure>
 
 <ol>
-<li><h4 id="安装-node-22-17-1"><a href="#安装-node-22-17-1" class="headerlink" title="安装 node 22.17.1 "></a>安装 node 22.17.1 <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-10.png" alt="alt text" data-caption="alt text" loading="lazy"></h4></li>
-<li><h4 id="设置默认版本"><a href="#设置默认版本" class="headerlink" title="设置默认版本"></a>设置默认版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm use 22.17.1<br></code></pre></td></tr></table></figure></li>
+<li><h4 id="安装-Node-js-22-17-1"><a href="#安装-Node-js-22-17-1" class="headerlink" title="安装 Node.js 22.17.1 "></a>安装 Node.js 22.17.1 <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/image-10.png" alt="alt text" data-caption="alt text" loading="lazy"></h4></li>
+<li><h4 id="设置默认-Node-js-版本"><a href="#设置默认-Node-js-版本" class="headerlink" title="设置默认 Node.js 版本"></a>设置默认 Node.js 版本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">fnm use 22.17.1<br></code></pre></td></tr></table></figure></li>
 </ol>
-<h3 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h3><h4 id="删除旧依赖"><a href="#删除旧依赖" class="headerlink" title="删除旧依赖"></a>删除旧依赖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">Remove-Item -Recurse -Force node_modules<br>Remove-Item -Force package-lock.json<br><br>npm install -g hexo-cli<br>npm install hexo-asset-image<br></code></pre></td></tr></table></figure>
+<h3 id="安装-hexo"><a href="#安装-hexo" class="headerlink" title="安装 hexo"></a>安装 hexo</h3><h4 id="删除旧的依赖"><a href="#删除旧的依赖" class="headerlink" title="删除旧的依赖"></a>删除旧的依赖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">Remove-Item -Recurse -Force node_modules<br>Remove-Item -Force package-lock.json<br><br>npm install -g hexo-cli<br>npm install hexo-asset-image<br></code></pre></td></tr></table></figure>
 
-<h4 id="安装-HEXO"><a href="#安装-HEXO" class="headerlink" title="安装 HEXO"></a>安装 HEXO</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> -g hexo-cli<br>npm <span class="hljs-keyword">install</span> hexo-asset-image<br></code></pre></td></tr></table></figure>
+<h4 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g hexo-cli<br>npm install hexo-asset-image<br></code></pre></td></tr></table></figure>
 
     
   </article>
@@ -368,7 +375,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1753325845825"></script>
+    <script async src="/js/copy-codeblock.js?v=1753366563586"></script>
   
 
   
@@ -382,7 +389,7 @@
             <button class="mdui-fab catalog" style="overflow:unset;">
                 <i class="nexmoefont icon-i-catalog"></i>
                 <div class="nexmoe-toc">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nvm-%E8%BF%81%E7%A7%BB%E5%88%B0-fnm"><span class="toc-number">1.</span> <span class="toc-text">nvm 迁移到 fnm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD-nvm"><span class="toc-number">1.1.</span> <span class="toc-text">卸载 nvm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%BE%E5%87%BAnpm%E4%B8%AD%E6%89%80%E6%9C%89hexo%E4%BE%9D%E8%B5%96%E7%9A%84%E5%8C%85"><span class="toc-number">1.1.1.</span> <span class="toc-text">找出npm中所有hexo依赖的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%B7%B2%E6%9C%89node%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.2.</span> <span class="toc-text">删除已有node版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E6%89%80%E6%9C%89node%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.3.</span> <span class="toc-text">卸载所有node版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%8D%B8%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text">运行卸载程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%8D%B8%E8%BD%BD%E5%AE%8C%E6%AF%95"><span class="toc-number">1.1.5.</span> <span class="toc-text">检查是否卸载完毕 </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-fnm"><span class="toc-number">1.2.</span> <span class="toc-text">安装 fnm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-scoop-%E5%AE%89%E8%A3%85-fnm"><span class="toc-number">1.2.1.</span> <span class="toc-text">使用 scoop 安装 fnm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">设置环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5powershell%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">检查powershell配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91profile%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">编辑profile配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0fnm%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text">添加fnm环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">验证是否成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E5%AE%89%E8%A3%85%E6%A0%B9%E7%9B%AE%E5%BD%95"><span class="toc-number">1.3.5.</span> <span class="toc-text">修改默认安装根目录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fnm-%E5%AE%89%E8%A3%85-node"><span class="toc-number">1.4.</span> <span class="toc-text">fnm 安装 node</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-node-22-17-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">安装 node 22.17.1 </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="toc-number">1.4.2.</span> <span class="toc-text">设置默认版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-hexo"><span class="toc-number">1.5.</span> <span class="toc-text">安装 hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%97%A7%E4%BE%9D%E8%B5%96"><span class="toc-number">1.5.1.</span> <span class="toc-text">删除旧依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-HEXO"><span class="toc-number">1.5.2.</span> <span class="toc-text">安装 HEXO</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nvm-%E8%BF%81%E7%A7%BB%E5%88%B0-fnm"><span class="toc-number">1.</span> <span class="toc-text">nvm 迁移到 fnm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD-nvm"><span class="toc-number">1.1.</span> <span class="toc-text">卸载 nvm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%BE%E5%87%BAnpm%E4%B8%AD%E6%89%80%E6%9C%89hexo%E4%BE%9D%E8%B5%96%E7%9A%84%E5%8C%85"><span class="toc-number">1.1.1.</span> <span class="toc-text">找出npm中所有hexo依赖的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%B7%B2%E6%9C%89Node-js%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.2.</span> <span class="toc-text">删除已有Node.js版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E6%89%80%E6%9C%89-Node-js-%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.3.</span> <span class="toc-text">卸载所有 Node.js 版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%8D%B8%E8%BD%BD%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text">运行卸载程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%8D%B8%E8%BD%BD%E5%AE%8C%E6%AF%95"><span class="toc-number">1.1.5.</span> <span class="toc-text">检查是否卸载完毕 </span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-fnm"><span class="toc-number">1.2.</span> <span class="toc-text">安装 fnm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-scoop-%E5%AE%89%E8%A3%85-fnm"><span class="toc-number">1.2.1.</span> <span class="toc-text">使用 scoop 安装 fnm</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">设置环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5-PowerShell-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">检查 PowerShell 配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91-Profile-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">编辑 Profile 配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-FNM-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.3.</span> <span class="toc-text">添加 FNM 环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">验证安装是否成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="toc-number">1.3.5.</span> <span class="toc-text">修改默认安装目录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fnm-%E5%AE%89%E8%A3%85-node"><span class="toc-number">1.4.</span> <span class="toc-text">fnm 安装 node</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Node-js-22-17-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">安装 Node.js 22.17.1 </span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4-Node-js-%E7%89%88%E6%9C%AC"><span class="toc-number">1.4.2.</span> <span class="toc-text">设置默认 Node.js 版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-hexo"><span class="toc-number">1.5.</span> <span class="toc-text">安装 hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E6%97%A7%E7%9A%84%E4%BE%9D%E8%B5%96"><span class="toc-number">1.5.1.</span> <span class="toc-text">删除旧的依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="toc-number">1.5.2.</span> <span class="toc-text">安装 Hexo</span></a></li></ol></li></ol></li></ol>
                 </div>
             </button>
             
