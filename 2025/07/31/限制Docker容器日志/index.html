@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="zh"><head>
+<title>如何限制Docker容器日志文件的大小 - 巧克力 の 移动城堡</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+
+<link rel="shortcut icon" href="/covers/favicon.ico" type="image/x-icon" />
+<meta name="description" content="如何限制Docker镜像容器日志文件的大小 解决办法 在 docker-compose.yml 文件中的对应服务添加以下配置 12345logging:    driver: &quot;json-file&quot; # 指定使用 json-file 日志驱动    options:        max-size: &quot;100m&quot;  # 每个日志文件最大 100MB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何限制Docker容器日志文件的大小">
+<meta property="og:url" content="https://chris-yuki.github.io/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/index.html">
+<meta property="og:site_name" content="巧克力 の 移动城堡">
+<meta property="og:description" content="如何限制Docker镜像容器日志文件的大小 解决办法 在 docker-compose.yml 文件中的对应服务添加以下配置 12345logging:    driver: &quot;json-file&quot; # 指定使用 json-file 日志驱动    options:        max-size: &quot;100m&quot;  # 每个日志文件最大 100MB">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/img.png">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/image.png">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/image-1.png">
+<meta property="og:image" content="https://chris-yuki.github.io/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/1754019022554_d.gif">
+<meta property="article:published_time" content="2025-07-31T07:00:53.000Z">
+<meta property="article:modified_time" content="2025-07-31T07:00:53.000Z">
+<meta property="article:author" content="巧克力">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chris-yuki.github.io/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/img.png">
+
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1754019609599">
+
+<link rel="stylesheet" href="/css/style.css?v=1754019609599">
+
+
+
+
+    
+        <link rel="stylesheet" href="/custom.css?v=1754019609599">
+    
+
+
+
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+<script src="/lib/lax.min.js" async></script>
+
+
+<script async src="/js/app.js?v=1754019609599"></script>
+
+ 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head><body class="nexmoe mdui-drawer-body-left"><div id="nexmoe-background"><div class="nexmoe-bg" style="background-image: url(https://wallpapercave.com/wp/wp8345235.jpg)"></div><div class="mdui-appbar mdui-shadow-0"><div class="mdui-toolbar"><a class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: &#039;#drawer&#039;, swipe: true}" title="menu"><i class="mdui-icon nexmoefont icon-menu"></i></a><div class="mdui-toolbar-spacer"></div><a class="mdui-btn mdui-btn-icon" href="/" title="巧克力"><img src="/covers/profile-images.png" alt="巧克力"></a></div></div></div><div id="nexmoe-header"><div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="巧克力">
+            <img src="/covers/profile-images.png" alt="巧克力" alt="巧克力">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>5</div>
+        <div><span>标签</span>13</div>
+        <div><span>分类</span>7</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" target="_blank" rel="noopener" href="https://github.com/Chris-Yuki" title="关于博主">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博主
+            </div>
+        </a>
+        
+    </div>
+    
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=site:https://chris-yuki.github.io" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://space.bilibili.com/85279737"
+			target="_blank"
+			mdui-tooltip="{content: '哔哩哔哩'}"
+			style="
+				color: rgb(231, 106, 141);
+				background-color: rgba(231, 106, 141, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-bilibili"
+			></i> </a
+		><a
+			class="mdui-ripple"
+			href="https://github.com/chris-yuki/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(180, 180, 180);
+				background-color: rgba(231, 106, 141, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/技术教程/AI-工具/">AI 工具</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/开发工具/前端开发/">前端开发</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/博客/">博客</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/开发工具/">开发工具</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/技术教程/">技术教程</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/服务器运维/">服务器运维</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/服务器运维/监控告警/">监控告警</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/CLI/" style="font-size: 10px;">CLI</a> <a href="/tags/Gemini/" style="font-size: 10px;">Gemini</a> <a href="/tags/Grafana/" style="font-size: 10px;">Grafana</a> <a href="/tags/Hello-World/" style="font-size: 10px;">Hello World</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Nginx/" style="font-size: 10px;">Nginx</a> <a href="/tags/Node-js/" style="font-size: 20px;">Node.js</a> <a href="/tags/Prometheus/" style="font-size: 10px;">Prometheus</a> <a href="/tags/Windows/" style="font-size: 10px;">Windows</a> <a href="/tags/fnm/" style="font-size: 10px;">fnm</a> <a href="/tags/nvm/" style="font-size: 10px;">nvm</a> <a href="/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" style="font-size: 10px;">版本管理</a> <a href="/tags/%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">监控</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(13);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+    
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/">2025</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+
+    
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">最新文章</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/">如何限制Docker容器日志文件的大小</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/">Windows 11 安装 Gemini-cli</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/23/grafana%E7%9B%91%E6%8E%A7nginx/">Grafana 如何监控 Nginx 状态</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/21/nvm%E8%BF%81%E7%A7%BB%E5%88%B0fnm/">nvm 迁移到 fnm</a>
+          </li>
+        
+          <li>
+            <a href="/2025/07/17/hello-world/">你好，世界</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+        
+        <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-link">
+		<ul>
+        
+		</ul>
+    </div>
+</div>
+<style>
+.nexmoe-widget-wrap .nexmoe-link ul li a {
+    text-align : center;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a img {
+    max-width : 100%;
+}
+.nexmoe-widget-wrap .nexmoe-link ul li a p {
+    margin: 10px 0;
+}
+</style>
+
+    
+   
+    <div class="nexmoe-copyright">
+        &copy; 2025 巧克力
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer --></div><div id="nexmoe-content"><div class="nexmoe-primary"><div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover absolute" style="padding-top: 62.5%;"> 
+            <img src="/covers/default-REM.png" alt="如何限制Docker容器日志文件的大小" loading="lazy">
+            <h1>如何限制Docker容器日志文件的大小</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2025年07月31日</a>
+        
+        
+    <a><i class="nexmoefont icon-areachart"></i>约1.2k字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要5分钟</a>
+
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="如何限制Docker镜像容器日志文件的大小"><a href="#如何限制Docker镜像容器日志文件的大小" class="headerlink" title="如何限制Docker镜像容器日志文件的大小"></a>如何限制Docker镜像容器日志文件的大小</h2><ol>
+<li><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><ol>
+<li><h4 id="在-docker-compose-yml-文件中的对应服务添加以下配置"><a href="#在-docker-compose-yml-文件中的对应服务添加以下配置" class="headerlink" title="在 docker-compose.yml 文件中的对应服务添加以下配置"></a>在 docker-compose.yml 文件中的对应服务添加以下配置</h4> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">logging:<br>    driver: <span class="hljs-string">&quot;json-file&quot;</span> <span class="hljs-comment"># 指定使用 json-file 日志驱动</span><br>    options:<br>        max-size: <span class="hljs-string">&quot;100m&quot;</span>  <span class="hljs-comment"># 每个日志文件最大 100MB</span><br>        max-file: <span class="hljs-string">&quot;5&quot;</span>      <span class="hljs-comment"># 最多保留 5 个日志文件</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><h4 id="例：修改前"><a href="#例：修改前" class="headerlink" title="例：修改前"></a>例：修改前</h4> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推荐使用最新的 Compose 文件格式，所以 &#x27;version&#x27; 字段可以省略</span><br><span class="hljs-comment"># 但如果你坚持保留，确保它是字符串格式，例如 &#x27;3.8&#x27; 或 &#x27;3&#x27;</span><br>version: <span class="hljs-string">&#x27;3.8&#x27;</span><br>    <br>services:<br>    jenkins: <span class="hljs-comment"># Docker Compose 内部的服务名称</span><br>        image: jenkins/jenkins:lts <span class="hljs-comment"># 使用 Jenkins 官方 LTS 镜像</span><br>        container_name: jenkins-compose <span class="hljs-comment"># 设置容器的实际名称，避免与已存在的容器冲突</span><br>        ports:<br>            - <span class="hljs-string">&quot;8081:8080&quot;</span> <span class="hljs-comment"># 将宿主机 8081 端口映射到容器的 8080 端口 (Jenkins Web UI)</span><br>            - <span class="hljs-string">&quot;50000:50000&quot;</span> <span class="hljs-comment"># 将宿主机 50000 端口映射到容器的 50000 端口 (Jenkins Agent)</span><br>        volumes:<br>            - /data/jenkins_home:/var/jenkins_home <span class="hljs-comment"># Jenkins 持久化数据目录</span><br>            <span class="hljs-comment"># 以下是你在容器内挂载的额外工具链，确保宿主机上的路径存在且正确</span><br>            - /root/.nvm/versions/node/v14.21.3:/data/node/v14.21.3<br>            <span class="hljs-comment"># - /root/.nvm/versions/node/v16.17.1:/data/node/v14.21.3</span><br>            <span class="hljs-comment"># - /root/.nvm/versions/node/v16.20.2:/data/node/v16.20.2</span><br>            - /usr/bin/python3:/data/python/python3<br>            - /root/.sdkman/candidates/java/8.0.442-tem:/data/java/8.0.442-tem<br>            - /root/.sdkman/candidates/maven/3.9.9:/data/maven/3.9.9<br>        environment:<br>            <span class="hljs-comment"># 以下是 Jenkins 容器内部所需的环境变量</span><br>            - MAVEN_HOME=/data/maven/3.9.9<br>            - PATH=/opt/java/openjdk/bin:/data/maven/3.9.9/bin:/data/node/v14.21.3/bin:/data/python:/root/.nvm/versions/node/v14.21.3/bin:/root/.sdkman/candidates/maven/current/bin:/root/.sdkman/candidates/java/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin<br>            - LANG=C.UTF-8<br>            - JENKINS_HOME=/var/jenkins_home<br>            - JENKINS_SLAVE_AGENT_PORT=50000<br>            - REF=/usr/share/jenkins/ref<br>            - JENKINS_VERSION=2.492.2<br>            - JENKINS_UC=https://updates.jenkins.io<br>            - JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental<br>            - JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals<br>            - COPY_REFERENCE_FILE_LOG=/var/jenkins_home/copy_reference_file.log<br>            - JAVA_HOME=/opt/java/openjdk<br>        restart: <span class="hljs-string">&quot;always&quot;</span> <span class="hljs-comment"># 容器重启策略，确保是字符串 &quot;always&quot;</span><br>        user: jenkins <span class="hljs-comment"># 指定容器以 jenkins 用户身份运行</span><br>        networks:<br>            - data_default <span class="hljs-comment"># 容器连接到名为 data_default 的网络</span><br>    <br>networks:<br>    data_default:<br>        external: <span class="hljs-literal">true</span> <span class="hljs-comment"># 表明这是一个已经存在的外部网络</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><h4 id="修改后"><a href="#修改后" class="headerlink" title="修改后"></a>修改后</h4> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 推荐使用最新的 Compose 文件格式，所以 &#x27;version&#x27; 字段可以省略</span><br><span class="hljs-comment"># 但如果你坚持保留，确保它是字符串格式，例如 &#x27;3.8&#x27; 或 &#x27;3&#x27;</span><br>version: <span class="hljs-string">&#x27;3.8&#x27;</span><br>    <br>services:<br>    jenkins: <span class="hljs-comment"># Docker Compose 内部的服务名称</span><br>        image: jenkins/jenkins:lts <span class="hljs-comment"># 使用 Jenkins 官方 LTS 镜像</span><br>        container_name: jenkins-compose <span class="hljs-comment"># 设置容器的实际名称，避免与已存在的容器冲突</span><br>        ports:<br>            - <span class="hljs-string">&quot;8081:8080&quot;</span> <span class="hljs-comment"># 将宿主机 8081 端口映射到容器的 8080 端口 (Jenkins Web UI)</span><br>            - <span class="hljs-string">&quot;50000:50000&quot;</span> <span class="hljs-comment"># 将宿主机 50000 端口映射到容器的 50000 端口 (Jenkins Agent)</span><br>        volumes:<br>            - /data/jenkins_home:/var/jenkins_home <span class="hljs-comment"># Jenkins 持久化数据目录</span><br>            <span class="hljs-comment"># 以下是你在容器内挂载的额外工具链，确保宿主机上的路径存在且正确</span><br>            - /root/.nvm/versions/node/v14.21.3:/data/node/v14.21.3<br>            <span class="hljs-comment"># - /root/.nvm/versions/node/v16.17.1:/data/node/v14.21.3</span><br>            <span class="hljs-comment"># - /root/.nvm/versions/node/v16.20.2:/data/node/v16.20.2</span><br>            - /usr/bin/python3:/data/python/python3<br>            - /root/.sdkman/candidates/java/8.0.442-tem:/data/java/8.0.442-tem<br>            - /root/.sdkman/candidates/maven/3.9.9:/data/maven/3.9.9<br>        environment:<br>            <span class="hljs-comment"># 以下是 Jenkins 容器内部所需的环境变量</span><br>            - MAVEN_HOME=/data/maven/3.9.9<br>            - PATH=/opt/java/openjdk/bin:/data/maven/3.9.9/bin:/data/node/v14.21.3/bin:/data/python:/root/.nvm/versions/node/v14.21.3/bin:/root/.sdkman/candidates/maven/current/bin:/root/.sdkman/candidates/java/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin<br>            - LANG=C.UTF-8<br>            - JENKINS_HOME=/var/jenkins_home<br>            - JENKINS_SLAVE_AGENT_PORT=50000<br>            - REF=/usr/share/jenkins/ref<br>            - JENKINS_VERSION=2.492.2<br>            - JENKINS_UC=https://updates.jenkins.io<br>            - JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental<br>            - JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals<br>            - COPY_REFERENCE_FILE_LOG=/var/jenkins_home/copy_reference_file.log<br>            - JAVA_HOME=/opt/java/openjdk<br>        restart: <span class="hljs-string">&quot;always&quot;</span> <span class="hljs-comment"># 容器重启策略，确保是字符串 &quot;always&quot;</span><br>        user: jenkins <span class="hljs-comment"># 指定容器以 jenkins 用户身份运行</span><br>        networks:<br>            - data_default <span class="hljs-comment"># 容器连接到名为 data_default 的网络</span><br>        <span class="hljs-comment"># ====== 以下是新增的日志限制配置 ======</span><br>        logging:<br>            driver: <span class="hljs-string">&quot;json-file&quot;</span> <span class="hljs-comment"># 指定使用 json-file 日志驱动</span><br>            options:<br>                max-size: <span class="hljs-string">&quot;100m&quot;</span>  <span class="hljs-comment"># 每个日志文件最大 100MB</span><br>                max-file: <span class="hljs-string">&quot;5&quot;</span>      <span class="hljs-comment"># 最多保留 5 个日志文件</span><br>        <span class="hljs-comment"># ======================================</span><br>    <br>networks:<br>    data_default:<br>        external: <span class="hljs-literal">true</span> <span class="hljs-comment"># 表明这是一个已经存在的外部网络</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><h3 id="手动新增日志并验证"><a href="#手动新增日志并验证" class="headerlink" title="手动新增日志并验证"></a>手动新增日志并验证</h3><ol>
+<li><h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>  在 compose 文件中添加以下内容：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">command</span>: sh -c <span class="hljs-string">&quot;while true; do echo &#x27;This is a test log entry at <span class="hljs-subst">$(date)</span>&#x27;; sleep 0.1; done&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>  把日志大小改为100k，方便查看</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">max-size: <span class="hljs-string">&quot;100k&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/img.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+</li>
+<li><h4 id="强制重建容器以应用参数"><a href="#强制重建容器以应用参数" class="headerlink" title="强制重建容器以应用参数"></a>强制重建容器以应用参数</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker compose up -d --force-recreate<br></code></pre></td></tr></table></figure>
+</li>
+<li><h4 id="进入容器映射目录，监控日志大小"><a href="#进入容器映射目录，监控日志大小" class="headerlink" title="进入容器映射目录，监控日志大小"></a>进入容器映射目录，监控日志大小</h4><ol>
+<li><p>查找容器id</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker ps -a --no-trunc -f name=jenkins-compose<br></code></pre></td></tr></table></figure>
+
+<p> 结果:<br> <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/image.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+</li>
+<li><p>进入容器映射目录</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /var/lib/docker/containers/&lt;你的容器<span class="hljs-built_in">id</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p> <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/image-1.png" alt="alt text" data-caption="alt text" loading="lazy"></p>
+</li>
+<li><p>监控日志大小</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">watch -n 1 <span class="hljs-string">&#x27;ls -lh&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p> <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/31/%E9%99%90%E5%88%B6Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/1754019022554_d.gif" alt="alt text" data-caption="alt text" loading="lazy"><br> 看到日志在涨就是成功了</p>
+</li>
+</ol>
+</li>
+<li><h4 id="记得还原compose-文件配置"><a href="#记得还原compose-文件配置" class="headerlink" title="记得还原compose 文件配置"></a>记得还原compose 文件配置</h4></li>
+</ol>
+</li>
+</ol>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1754019609561"></script>
+  
+
+  
+</div></div><div class="nexmoe-post-right">    <div class="nexmoe-fixed">
+        <div class="nexmoe-tool">
+
+            
+
+            
+            
+            <button class="mdui-fab catalog" style="overflow:unset;">
+                <i class="nexmoefont icon-i-catalog"></i>
+                <div class="nexmoe-toc">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%99%90%E5%88%B6Docker%E9%95%9C%E5%83%8F%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.</span> <span class="toc-text">如何限制Docker镜像容器日志文件的大小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-docker-compose-yml-%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%AF%B9%E5%BA%94%E6%9C%8D%E5%8A%A1%E6%B7%BB%E5%8A%A0%E4%BB%A5%E4%B8%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.1.</span> <span class="toc-text">在 docker-compose.yml 文件中的对应服务添加以下配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E4%BF%AE%E6%94%B9%E5%89%8D"><span class="toc-number">1.1.2.</span> <span class="toc-text">例：修改前</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%90%8E"><span class="toc-number">1.1.3.</span> <span class="toc-text">修改后</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%96%B0%E5%A2%9E%E6%97%A5%E5%BF%97%E5%B9%B6%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.</span> <span class="toc-text">手动新增日志并验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E9%87%8D%E5%BB%BA%E5%AE%B9%E5%99%A8%E4%BB%A5%E5%BA%94%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">强制重建容器以应用参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8%E6%98%A0%E5%B0%84%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text">进入容器映射目录，监控日志大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%B0%E5%BE%97%E8%BF%98%E5%8E%9Fcompose-%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.4.</span> <span class="toc-text">记得还原compose 文件配置</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </button>
+            
+
+            
+
+            <a href="#nexmoe-content" class="backtop toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+        </div>
+    </div>
+</div></div><div id="nexmoe-footer"><!--!--></div><div id="nexmoe-search-space"><div class="search-container"><div class="search-header"><div class="search-input-container"><input class="search-input" type="text" placeholder="搜索" onInput="sinput();"></div><a class="search-close" onclick="sclose();">×</a></div><div class="search-body"></div></div></div><div></div></body></html>
