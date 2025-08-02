@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>我对你的爱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #fff0f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 77, 109, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 24px;
+            line-height: 44px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            text-decoration: none;
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(255, 117, 143, 0.9);
+            transform: scale(1.1);
+        }
+
+        .header {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #ff758f;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            border: 10px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background-image: url('/MyHTML/ForMyLover/Photo.png');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-frame::after {
+            content: "我们的照片";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem;
+            text-align: center;
+            color: #ff4d6d;
+        }
+
+        .message-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .message {
+            color: #ff758f;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .signature {
+            font-style: italic;
+            color: #ff4d6d;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .heart-btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .heart-btn:hover {
+            background-color: #ff758f;
+            transform: scale(1.05);
+        }
+
+        .heart-btn:active {
+            transform: scale(0.95);
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 5s linear infinite;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .reasons {
+            display: none;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 2rem;
+        }
+
+        .reasons h2 {
+            color: #ff4d6d;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .reasons ul {
+            list-style-type: none;
+        }
+
+        .reasons li {
+            color: #ff758f;
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .reasons li::before {
+            content: "❤";
+            position: absolute;
+            left: 0;
+            color: #ff4d6d;
+        }
+
+        .special-moments {
+            display: none;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .special-moments h2 {
+            color: #ff4d6d;
+            margin-bottom: 1rem;
+        }
+
+        .moment-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .moment {
+            min-width: 200px;
+            height: 150px;
+            background-color: #ffebf0;
+            border-radius: 5px;
+            padding: 1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .moment p {
+            color: #ff758f;
+        }
+
+        .moment .date {
+            font-size: 0.8rem;
+            color: #ff4d6d;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 1rem;
+            text-align: center;
+            color: #ff758f;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .photo-frame {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../" class="back-btn">←</a>
+    <div class="header">
+        <h1>我对你的爱</h1>
+        <p class="subtitle">与你相伴的每一天都是恩赐</p>
+    </div>
+
+    <div class="photo-frame"></div>
+
+    <div class="message-box">
+        <p class="message">
+            从遇见你的那一刻起，我的生命就充满了喜悦和幸福。
+            你的微笑照亮了我最黑暗的日子，你的爱给了我力量。
+            我珍惜我们在一起的每一刻，并期待与你创造更多美好的回忆。
+        </p>
+        <p class="message">
+            你是我的阳光，我的一切。我爱你，言语无法表达。
+        </p>
+        <p class="signature">永远属于你</p>
+    </div>
+
+    <button class="heart-btn" id="heartButton">发送爱心 ❤</button>
+
+    <div class="reasons" id="reasons">
+        <h2>我爱你的理由</h2>
+        <ul>
+            <li>你融化我心的美丽微笑</li>
+            <li>你无需言语就能理解我</li>
+            <li>你对所有人的善良和同情</li>
+            <li>你如何让平凡的日子变得特别</li>
+            <li>你的笑声给我带来快乐</li>
+            <li>你的力量和决心</li>
+            <li>在我最需要的时候你关心我的方式</li>
+            <li>你的智慧和创造力</li>
+            <li>你如何激励我成为一个更好的人</li>
+            <li>只因为你是如此出色的人</li>
+        </ul>
+    </div>
+
+    <div class="special-moments" id="specialMoments">
+        <h2>我们的特殊时刻</h2>
+        <div class="moment-container">
+            <div class="moment">
+                <p>我们第一次约会时，我们聊了好几个小时</p>
+                <p class="date">还记得那天吗？</p>
+            </div>
+            <div class="moment">
+                <p>我们被雨淋湿了，但还是跳起了舞</p>
+                <p class="date">多么随性！</p>
+            </div>
+            <div class="moment">
+                <p>你生日那天送给我完美的礼物，让我惊喜不已</p>
+                <p class="date">你太了解我了</p>
+            </div>
+            <div class="moment">
+                <p>我们深夜关于梦想和未来的谈话</p>
+                <p class="date">规划我们的永恒</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        为你倾心打造 ❤
+    </footer>
+
+    <script>
+        const heartButton = document.getElementById('heartButton');
+        const reasonsSection = document.getElementById('reasons');
+        const specialMomentsSection = document.getElementById('specialMoments');
+        let heartCount = 0;
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+
+            // Remove heart after animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Start creating hearts periodically
+        setInterval(createHeart, 300);
+
+        // Heart button click handler
+        heartButton.addEventListener('click', () => {
+            heartCount++;
+
+            // Create a burst of hearts
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+
+            // Show reasons section after first click
+            if (heartCount === 1) {
+                reasonsSection.style.display = 'block';
+                reasonsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Show special moments section after second click
+            if (heartCount === 2) {
+                specialMomentsSection.style.display = 'block';
+                specialMomentsSection.scrollIntoView({ behavior: 'smooth' });
+                heartButton.textContent = '我爱你 ❤';
+            }
+
+            // Change button text after third click
+            if (heartCount >= 3) {
+                const phrases = [
+                    '我非常爱你 ❤',
+                    '你是我的一切 ❤',
+                    '永远永远 ❤',
+                    '我的心是你的 ❤'
+                ];
+
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                heartButton.textContent = randomPhrase;
+
+                // Create even more hearts
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(createHeart, i * 100);
+                }
+            }
+        });
+
+        // Make photo frame interactive
+        const photoFrame = document.querySelector('.photo-frame');
+        photoFrame.addEventListener('click', () => {
+            photoFrame.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => {
+                photoFrame.style.transform = 'scale(1) rotate(0deg)';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
