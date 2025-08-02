@@ -1,47 +1,36 @@
 <!doctype html>
 <html lang="zh"><head>
-<title>Windows 11 安装 Gemini-cli - 巧克力 の 移动城堡</title>
+<title>将Docker默认数据目录迁移到指定位置 - 巧克力 の 移动城堡</title>
 <meta charset="UTF-8">
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
 <link rel="shortcut icon" href="/covers/favicon.ico" type="image/x-icon" />
-<meta name="description" content="Windows 11 安装 Gemini-cli前置： 科学上网环境（VPN&#x2F;代理） Node.js（版本要求：v20+） Git Bash 环境  安装 Gemini CLI 使用 npm 安装 Gemini CLI 1npm install -g @google&#x2F;gemini-cli  查看 Gemini CLI 版本 1gemini --version  输出结果：  启动 1ge">
+<meta name="description" content="前言随着Docker使用时间的增长，镜像和容器会逐渐增多，默认情况下，Docker的数据（包括镜像、容器、卷等）都存储在&#x2F;var&#x2F;lib&#x2F;docker目录下。如果&#x2F;var分区空间不足，可能会影响到Docker的正常运行，甚至整个系统的稳定性。因此，将Docker的数据目录迁移到其他磁盘空间更充裕的位置是一个常见的需求。 本文将介绍如何将Docker的默认数据目录从&#x2F;var&#x2F;lib&#x2F;docker迁移">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows 11 安装 Gemini-cli">
-<meta property="og:url" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/index.html">
+<meta property="og:title" content="将Docker默认数据目录迁移到指定位置">
+<meta property="og:url" content="https://chris-yuki.github.io/2025/08/02/%E5%B0%86Docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95%E8%BF%81%E7%A7%BB%E5%88%B0%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="巧克力 の 移动城堡">
-<meta property="og:description" content="Windows 11 安装 Gemini-cli前置： 科学上网环境（VPN&#x2F;代理） Node.js（版本要求：v20+） Git Bash 环境  安装 Gemini CLI 使用 npm 安装 Gemini CLI 1npm install -g @google&#x2F;gemini-cli  查看 Gemini CLI 版本 1gemini --version  输出结果：  启动 1ge">
+<meta property="og:description" content="前言随着Docker使用时间的增长，镜像和容器会逐渐增多，默认情况下，Docker的数据（包括镜像、容器、卷等）都存储在&#x2F;var&#x2F;lib&#x2F;docker目录下。如果&#x2F;var分区空间不足，可能会影响到Docker的正常运行，甚至整个系统的稳定性。因此，将Docker的数据目录迁移到其他磁盘空间更充裕的位置是一个常见的需求。 本文将介绍如何将Docker的默认数据目录从&#x2F;var&#x2F;lib&#x2F;docker迁移">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image.png">
-<meta property="og:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-1.png">
-<meta property="og:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-2.png">
-<meta property="og:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-3.png">
-<meta property="og:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-4.png">
-<meta property="og:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-6.png">
-<meta property="article:published_time" content="2025-07-24T02:48:56.000Z">
-<meta property="article:modified_time" content="2025-07-24T02:49:03.000Z">
+<meta property="article:published_time" content="2025-08-02T14:24:25.000Z">
+<meta property="article:modified_time" content="2025-08-02T09:34:42.846Z">
 <meta property="article:author" content="巧克力">
-<meta property="article:tag" content="Gemini">
-<meta property="article:tag" content="CLI">
-<meta property="article:tag" content="Windows">
-<meta property="article:tag" content="Node.js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chris-yuki.github.io/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image.png">
 
 <link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1754127403708">
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1754127403683">
 
-<link rel="stylesheet" href="/css/style.css?v=1754127403708">
+<link rel="stylesheet" href="/css/style.css?v=1754127403683">
 
 
 
 
     
-        <link rel="stylesheet" href="/custom.css?v=1754127403708">
+        <link rel="stylesheet" href="/custom.css?v=1754127403684">
     
 
 
@@ -51,7 +40,7 @@
 <script src="/lib/lax.min.js" async></script>
 
 
-<script async src="/js/app.js?v=1754127403708"></script>
+<script async src="/js/app.js?v=1754127403684"></script>
 
  
 
@@ -319,20 +308,18 @@
   <article>
     
         <div class="nexmoe-post-cover absolute" style="padding-top: NaN%;"> 
-            <img src="/covers/win11安装Gemini.png" alt="Windows 11 安装 Gemini-cli" loading="lazy">
-            <h1>Windows 11 安装 Gemini-cli</h1>
+            <img src="/covers/default-REM.png" alt="将Docker默认数据目录迁移到指定位置" loading="lazy">
+            <h1>将Docker默认数据目录迁移到指定位置</h1>
         </div>
     
     
     <div class="nexmoe-post-meta">
     <div class="nexmoe-rainbow">
-        <a class="nexmoefont icon-calendar-fill">2025年07月24日</a>
-        
-            <a class="nexmoefont icon-appstore-fill -link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/">技术教程</a><a class="nexmoefont icon-appstore-fill -link" href="/categories/%E6%8A%80%E6%9C%AF%E6%95%99%E7%A8%8B/AI-%E5%B7%A5%E5%85%B7/">AI 工具</a>
+        <a class="nexmoefont icon-calendar-fill">2025年08月02日</a>
         
         
-    <a><i class="nexmoefont icon-areachart"></i>约218字</a>
-    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要1分钟</a>
+    <a><i class="nexmoefont icon-areachart"></i>约630字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要2分钟</a>
 
     </div>
     
@@ -342,54 +329,39 @@
     
 </div>
 
-    <h1 id="Windows-11-安装-Gemini-cli"><a href="#Windows-11-安装-Gemini-cli" class="headerlink" title="Windows 11 安装 Gemini-cli"></a>Windows 11 安装 Gemini-cli</h1><h2 id="前置："><a href="#前置：" class="headerlink" title="前置："></a>前置：</h2><ul>
-<li>科学上网环境（VPN&#x2F;代理）</li>
-<li>Node.js（版本要求：v20+）</li>
-<li>Git Bash 环境</li>
-</ul>
-<h2 id="安装-Gemini-CLI"><a href="#安装-Gemini-CLI" class="headerlink" title="安装 Gemini CLI"></a>安装 Gemini CLI</h2><ol>
-<li><p>使用 npm 安装 Gemini CLI</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g @google/gemini-cli<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>查看 Gemini CLI 版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gemini --version<br></code></pre></td></tr></table></figure>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着<code>Docker</code>使用时间的增长，镜像和容器会逐渐增多，默认情况下，<code>Docker</code>的数据（包括镜像、容器、卷等）都存储在<code>/var/lib/docker</code>目录下。如果<code>/var</code>分区空间不足，可能会影响到<code>Docker</code>的正常运行，甚至整个系统的稳定性。因此，将<code>Docker</code>的数据目录迁移到其他磁盘空间更充裕的位置是一个常见的需求。</p>
+<p>本文将介绍如何将<code>Docker</code>的默认数据目录从<code>/var/lib/docker</code>迁移到<code>/data/docker_files</code>。</p>
+<h2 id="迁移步骤"><a href="#迁移步骤" class="headerlink" title="迁移步骤"></a>迁移步骤</h2><h3 id="1-停止Docker服务"><a href="#1-停止Docker服务" class="headerlink" title="1. 停止Docker服务"></a>1. 停止Docker服务</h3><p>在进行任何操作之前，首先需要停止<code>Docker</code>服务，以确保数据的一致性。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl stop docker<br></code></pre></td></tr></table></figure>
 
-<p>输出结果：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image.png" alt="在 PowerShell 中成功安装 Gemini-CLI 后，使用 &#96;gemini --version&#96; 命令查看其版本号的截图" data-caption="在 PowerShell 中成功安装 Gemini-CLI 后，使用 &#96;gemini --version&#96; 命令查看其版本号的截图" loading="lazy"></p>
-</li>
-<li><p>启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gemini<br></code></pre></td></tr></table></figure>
+<h3 id="2-创建新的Docker数据目录"><a href="#2-创建新的Docker数据目录" class="headerlink" title="2. 创建新的Docker数据目录"></a>2. 创建新的Docker数据目录</h3><p>在目标位置创建一个新的目录，用于存放<code>Docker</code>的数据。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /data/docker_files<br></code></pre></td></tr></table></figure>
 
-<p>输出结果：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-1.png" alt="gemini 命令启动后的初始界面" data-caption="gemini 命令启动后的初始界面" loading="lazy"></p>
-</li>
-<li><p>选择 Login with Google<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-2.png" alt="Gemini CLI 登录选项" data-caption="Gemini CLI 登录选项" loading="lazy"></p>
-</li>
-</ol>
-<h2 id="问题1：登录失败"><a href="#问题1：登录失败" class="headerlink" title="问题1：登录失败"></a>问题1：登录失败</h2><p>   <img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-3.png" alt="Gemini CLI 登录失败的错误信息" data-caption="Gemini CLI 登录失败的错误信息" loading="lazy"></p>
-<ol>
-<li><p>解决办法</p>
-<ul>
-<li>科学环境不需要开启 tun 模式</li>
-<li>在命令行中输入</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-variable">$env</span>:https_proxy=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br><span class="hljs-variable">$env</span>:http_proxy=<span class="hljs-string">&quot;http://127.0.0.1:10808&quot;</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="问题2：缺少环境变量提示"><a href="#问题2：缺少环境变量提示" class="headerlink" title="问题2：缺少环境变量提示"></a>问题2：缺少环境变量提示</h2><ol>
-<li><p>错误提示：│ Failed to login. Message: This account requires setting the GOOGLE_CLOUD_PROJECT env var.│<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-4.png" alt="缺少 GOOGLE_CLOUD_PROJECT 环境变量的错误提示" data-caption="缺少 GOOGLE_CLOUD_PROJECT 环境变量的错误提示" loading="lazy"></p>
-</li>
-<li><p>创建并获取您的 Gemini API Key</p>
-<p><a target="_blank" rel="noopener" href="https://aistudio.google.com/app/apikey">https://aistudio.google.com/app/apikey</a></p>
-</li>
-<li><p>进入 %USERPROFILE%&#x2F;.gemini 目录</p>
-</li>
-<li><p>创建一个名为 .env 的文件，并添加以下内容<br>访问：<a target="_blank" rel="noopener" href="https://console.cloud.google.com/">https://console.cloud.google.com/</a></p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">GOOGLE_CLOUD_PROJECT=&lt;你的项目编号&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="3-迁移数据"><a href="#3-迁移数据" class="headerlink" title="3. 迁移数据"></a>3. 迁移数据</h3><p>使用<code>rsync</code>命令将旧目录的数据完整地迁移到新目录。<code>rsync</code>的<code>-a</code>参数可以保留文件的所有属性，<code>-x</code>参数可以确保只在同一个文件系统内进行操作，<code>-v</code>参数可以显示详细的迁移过程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">rsync -avx /var/lib/docker/ /data/docker_files/<br></code></pre></td></tr></table></figure>
 
-<ol start="5">
-<li>保存并退出，然后重新运行 gemini 登录</li>
-</ol>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2025/07/24/win11%E5%AE%89%E8%A3%85Gemini/image-6.png" alt="Gemini CLI 成功登录后的交互界面" data-caption="Gemini CLI 成功登录后的交互界面" loading="lazy"></p>
+<h3 id="4-配置Docker守护进程"><a href="#4-配置Docker守护进程" class="headerlink" title="4. 配置Docker守护进程"></a>4. 配置Docker守护进程</h3><p>为了让<code>Docker</code>知道新的数据目录位置，需要修改或创建<code>Docker</code>的配置文件<code>/etc/docker/daemon.json</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/docker/daemon.json<br></code></pre></td></tr></table></figure>
+
+<p>在该文件中，添加以下内容：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;data-root&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/data/docker_files&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果该文件已存在并包含其他配置，只需添加<code>&quot;data-root&quot;: &quot;/data/docker_files&quot;</code>这一项即可。</p>
+<h3 id="5-启动Docker服务"><a href="#5-启动Docker服务" class="headerlink" title="5. 启动Docker服务"></a>5. 启动Docker服务</h3><p>保存配置文件后，重新加载<code>systemd</code>配置并启动<code>Docker</code>服务。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl daemon-reload<br>systemctl start docker<br></code></pre></td></tr></table></figure>
+
+<h3 id="6-验证迁移结果"><a href="#6-验证迁移结果" class="headerlink" title="6. 验证迁移结果"></a>6. 验证迁移结果</h3><p>启动<code>Docker</code>后，可以通过<code>docker info</code>命令来验证新的数据目录是否生效。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker info | grep <span class="hljs-string">&quot;Docker Root Dir&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果输出结果为：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-type">Docker</span> <span class="hljs-type">Root</span> <span class="hljs-type">Dir</span>: /<span class="hljs-class"><span class="hljs-keyword">data</span>/docker_files</span><br></code></pre></td></tr></table></figure>
+
+<p>则说明迁移成功。</p>
+<h3 id="7-清理旧数据（可选）"><a href="#7-清理旧数据（可选）" class="headerlink" title="7. 清理旧数据（可选）"></a>7. 清理旧数据（可选）</h3><p>确认<code>Docker</code>服务在新目录下正常运行后，可以删除旧的数据目录以释放空间。</p>
+<p><strong>在执行此操作前，请务必确认数据已成功迁移且<code>Docker</code>运行正常。</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">rm</span> -rf /var/lib/docker<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过以上步骤，我们成功地将<code>Docker</code>的数据目录从默认的<code>/var/lib/docker</code>迁移到了<code>/data/docker_files</code>，解决了根分区空间不足的问题。在操作过程中，请务必谨慎，特别是在删除旧数据之前，一定要做好备份和验证工作。</p>
 
     
   </article>
@@ -402,12 +374,10 @@
   <div class="nexmoe-post-meta nexmoe-rainbow">
    
     
-        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/CLI/" rel="tag">CLI</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Gemini/" rel="tag">Gemini</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Node-js/" rel="tag">Node.js</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/Windows/" rel="tag">Windows</a>
-    
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1754127403646"></script>
+    <script async src="/js/copy-codeblock.js?v=1754127403642"></script>
   
 
   
@@ -421,7 +391,7 @@
             <button class="mdui-fab catalog" style="overflow:unset;">
                 <i class="nexmoefont icon-i-catalog"></i>
                 <div class="nexmoe-toc">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows-11-%E5%AE%89%E8%A3%85-Gemini-cli"><span class="toc-number">1.</span> <span class="toc-text">Windows 11 安装 Gemini-cli</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">前置：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Gemini-CLI"><span class="toc-number">1.2.</span> <span class="toc-text">安装 Gemini CLI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%981%EF%BC%9A%E7%99%BB%E5%BD%95%E5%A4%B1%E8%B4%A5"><span class="toc-number">1.3.</span> <span class="toc-text">问题1：登录失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%982%EF%BC%9A%E7%BC%BA%E5%B0%91%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%8F%90%E7%A4%BA"><span class="toc-number">1.4.</span> <span class="toc-text">问题2：缺少环境变量提示</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%81%E7%A7%BB%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">迁移步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%81%9C%E6%AD%A2Docker%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.1.</span> <span class="toc-text">1. 停止Docker服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84Docker%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95"><span class="toc-number">2.2.</span> <span class="toc-text">2. 创建新的Docker数据目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BF%81%E7%A7%BB%E6%95%B0%E6%8D%AE"><span class="toc-number">2.3.</span> <span class="toc-text">3. 迁移数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AEDocker%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.4.</span> <span class="toc-text">4. 配置Docker守护进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%90%AF%E5%8A%A8Docker%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.5.</span> <span class="toc-text">5. 启动Docker服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%AA%8C%E8%AF%81%E8%BF%81%E7%A7%BB%E7%BB%93%E6%9E%9C"><span class="toc-number">2.6.</span> <span class="toc-text">6. 验证迁移结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%B8%85%E7%90%86%E6%97%A7%E6%95%B0%E6%8D%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">2.7.</span> <span class="toc-text">7. 清理旧数据（可选）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
                 </div>
             </button>
             
